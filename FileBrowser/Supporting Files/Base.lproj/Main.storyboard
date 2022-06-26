@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="asS-Dl-8vt">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CcV-Hs-jDL">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JFN-NK-Imv">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemListTypeCell" id="UMm-oh-yXE" customClass="FileListTypeCollectionViewCell" customModule="FileBrowser" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0Df-2m-s6y">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ga1-4R-uu1">
+                                                    <rect key="frame" x="8" y="86" width="112" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="112" id="s2W-Cn-YJT"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="u6f-C7-OiN">
+                                                    <rect key="frame" x="32" y="9" width="64" height="67.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="70" id="tf5-Vr-2C0"/>
+                                                        <constraint firstAttribute="width" constant="64" id="tyo-7J-gqJ"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.9452037474738394" green="0.95194317854328925" blue="0.97216147175163858" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="Ga1-4R-uu1" firstAttribute="top" secondItem="u6f-C7-OiN" secondAttribute="bottom" constant="8" symbolic="YES" id="22h-Bk-Wy1"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ga1-4R-uu1" secondAttribute="trailing" constant="8" id="NHH-zk-uhv"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ga1-4R-uu1" secondAttribute="bottom" constant="21" id="P3q-2v-xqd"/>
+                                                <constraint firstItem="u6f-C7-OiN" firstAttribute="top" secondItem="0Df-2m-s6y" secondAttribute="top" constant="8" id="SDp-E2-j2O"/>
+                                                <constraint firstItem="Ga1-4R-uu1" firstAttribute="top" secondItem="u6f-C7-OiN" secondAttribute="bottom" constant="8" symbolic="YES" id="ZlR-y6-8qp"/>
+                                                <constraint firstItem="u6f-C7-OiN" firstAttribute="leading" secondItem="0Df-2m-s6y" secondAttribute="leading" constant="32" id="dvZ-1V-LgG"/>
+                                                <constraint firstItem="Ga1-4R-uu1" firstAttribute="leading" secondItem="0Df-2m-s6y" secondAttribute="leading" constant="8" id="ug9-Ea-4SF"/>
+                                                <constraint firstAttribute="trailing" secondItem="u6f-C7-OiN" secondAttribute="trailing" constant="32" id="vzO-og-y2s"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="fileName" destination="Ga1-4R-uu1" id="7gS-7l-W4k"/>
+                                            <outlet property="iconImageView" destination="u6f-C7-OiN" id="DX5-xI-sZE"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="Aot-Wm-T0f">
+                                <rect key="frame" x="0.0" y="61" width="414" height="774"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CcV-Hs-jDL" secondAttribute="trailing" id="DtP-Gb-lPj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CcV-Hs-jDL" secondAttribute="bottom" id="GYE-al-mfg"/>
+                            <constraint firstItem="CcV-Hs-jDL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Jmp-8T-ghE"/>
+                            <constraint firstItem="CcV-Hs-jDL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="MO8-pB-41v"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="uHl-Jg-1QZ">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward" catalog="system" id="ZGg-yl-Nnw">
+                            <connections>
+                                <action selector="backToPreviousFolder:" destination="BYZ-38-t0r" id="ZKT-2m-BsX"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="list.bullet" catalog="system" id="lIB-sW-DgF">
+                                <connections>
+                                    <action selector="toogleBeetwenGridAndListStyleWith_sender:" destination="BYZ-38-t0r" id="ok9-9w-5oe"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="folder.badge.plus" catalog="system" id="4W9-TA-eOZ"/>
+                            <barButtonItem title="Item" image="doc.badge.plus" catalog="system" id="2WC-u1-ltK"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Aot-Wm-T0f" id="RLf-Wy-eGd"/>
+                        <outlet property="collectionView" destination="CcV-Hs-jDL" id="Mqu-66-qNG"/>
+                        <outlet property="collectionViewStylToggleButton" destination="lIB-sW-DgF" id="JDM-fy-pEt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="886.95652173913049" y="47.544642857142854"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="URm-uk-i4g">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="asS-Dl-8vt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="F81-MU-qPa">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="oZa-er-VhA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ce-YS-GrO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-23.188405797101453" y="47.544642857142854"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="doc.badge.plus" catalog="system" width="119" height="128"/>
+        <image name="folder" catalog="system" width="128" height="97"/>
+        <image name="folder.badge.plus" catalog="system" width="128" height="91"/>
+        <image name="list.bullet" catalog="system" width="128" height="88"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

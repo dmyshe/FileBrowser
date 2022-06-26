@@ -1,0 +1,49 @@
+PODS:
+  - GoogleAPIClientForREST/Core (1.2.1):
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAPIClientForREST/Sheets (1.2.1):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleSignIn (4.1.2):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMOAuth2 (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - GoogleToolboxForMac/Defines (2.3.2)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.3.2)":
+    - GoogleToolboxForMac/DebugUtils (= 2.3.2)
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.2)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.3.2)"
+  - GTMOAuth2 (1.1.6):
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.7.2):
+    - GTMSessionFetcher/Full (= 1.7.2)
+  - GTMSessionFetcher/Core (1.7.2)
+  - GTMSessionFetcher/Full (1.7.2):
+    - GTMSessionFetcher/Core (= 1.7.2)
+
+DEPENDENCIES:
+  - GoogleAPIClientForREST/Sheets (~> 1.2.1)
+  - GoogleSignIn (~> 4.1.1)
+
+SPEC REPOS:
+  trunk:
+    - GoogleAPIClientForREST
+    - GoogleSignIn
+    - GoogleToolboxForMac
+    - GTMOAuth2
+    - GTMSessionFetcher
+
+SPEC CHECKSUMS:
+  GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
+  GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
+  GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
+  GTMOAuth2: e8b6512c896235149df975c41d9a36c868ab7fba
+  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
+
+PODFILE CHECKSUM: 97fa6dd4d881f45255037c7b2324b7df88fad2cd
+
+COCOAPODS: 1.11.2
