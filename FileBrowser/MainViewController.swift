@@ -8,7 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    //MARK: -IBOutlets
+    //MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewStylToggleButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -16,21 +16,12 @@ class MainViewController: UIViewController {
     //MARK: - Network Manager
     private let googleSSDownloader = GoogleSpreadSheetDownloader()
     
-    //MARK: - Properties
-    private var folders = [Folder(name: "Root", type: .d)]
-    private var items = [Item]()
-    
+    //MARK: - File Manager
+    private let fileManager = GSSFileManager()
+
     private var isListView = false {
         didSet {
             collectionViewStylToggleButton.image = isListView ? AppImages.systemListImage : AppImages.systemGridImage
-        }
-    }
-    
-    private var isLoadingDataToFoldersArrayCompleted = false
-    
-    private var currentFolderIndexPosition = 0 {
-        didSet {
-            collectionView.reloadData()
         }
     }
     
@@ -40,67 +31,23 @@ class MainViewController: UIViewController {
     }
     
     @IBAction private func backToPreviousFolder(_ sender: UIBarButtonItem) {
-        let folder = folders[currentFolderIndexPosition]
-        showContentFolder(withUUID: folder.parentUUID)
+        let folder = fileManager.currentFolder
+        fileManager.showContentFolder(withUUID: folder.parentUUID)
     }
     
     //MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        fileManager.delegate = self
         fetchData()
     }
-    
-    private func showContentFolder(withUUID itemUUID: UUID?) {
-        guard itemUUID != nil else  {
-            currentFolderIndexPosition = 0
-            return
-        }
         
-        for (i,folder) in folders.enumerated() {
-            if itemUUID == folder.uuid {
-                currentFolderIndexPosition = i
-                return
-            }
-        }
-    }
-    
     private func fetchData() {
         googleSSDownloader.fetchData() { [weak self] data in
             guard let spreadSheetData = data.values as? [[String]] else { return }
             
-            for row in spreadSheetData {
-                let uuid = row[0].isEmpty ? nil : UUID(uuidString: row[0])
-                let parentuuid = row[1].isEmpty ? nil : UUID(uuidString: row[1])
-                let item = row[2] == "f" ? Item(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .f) : Folder(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .d)
-                
-                self?.items.append(item)
-            }
-            
-            self?.recursive(parentUUID: nil)
-            
-            self?.isLoadingDataToFoldersArrayCompleted = true
+            self?.fileManager.generateFileSystems(from: spreadSheetData)
             self?.collectionView.reloadData()
-            
-            self?.folders.forEach({ item in
-                print(item.name)
-            })
-        }
-    }
-    
-    func recursive(parentUUID: UUID?) {
-        let folderIndex = folders.firstIndex(where: { $0.uuid == parentUUID})!
-        items.forEach { item in
-            if item.parentUUID == parentUUID {
-                folders[folderIndex].contents.append(item)
-                if item.type == .d {
-                    folders.append(item as! Folder)
-                    print("Call recusrsive with \(item.name)")
-                    recursive(parentUUID: item.uuid)
-                    collectionView.reloadData()
-                }
-            }
         }
     }
 }
@@ -108,26 +55,26 @@ class MainViewController: UIViewController {
 //MARK: - UICollectionViewDelegate
 extension MainViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = folders[currentFolderIndexPosition].contents[indexPath.row]
-        showContentFolder(withUUID: item.uuid)
+        let item = fileManager.currentFolder.contents[indexPath.row]
+        fileManager.showContentFolder(withUUID: item.uuid)
     }
 }
 
 //MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        folders[currentFolderIndexPosition].contents.count
+        fileManager.currentFolder.contents.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FileListTypeCollectionViewCell.identifier, for: indexPath) as? FileListTypeCollectionViewCell else { return  UICollectionViewCell() }
         
-        if !isLoadingDataToFoldersArrayCompleted  { return cell }
-        
         activityIndicator.stopAnimating()
         
-        let folder = folders[currentFolderIndexPosition]
+        let folder = fileManager.currentFolder
+        
         title = "\(folder.name)"
+        
         let item = folder.contents[indexPath.row]
         cell.configure(with: item)
         
@@ -135,3 +82,10 @@ extension MainViewController: UICollectionViewDataSource {
     }
 }
 
+
+//MARK: - GSSFileManagerDelegate
+extension MainViewController: GSSFileManagerDelegate {
+    func currentFolderChange() {
+        collectionView.reloadData()
+    }
+}

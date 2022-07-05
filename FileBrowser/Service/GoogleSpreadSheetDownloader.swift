@@ -11,8 +11,7 @@ import GoogleAPIClientForREST
 import GoogleSignIn
 
 final class GoogleSpreadSheetDownloader {
-   
-    private lazy var service: GTLRSheetsService  = {
+    private lazy var gtlrService: GTLRSheetsService  = {
         let s = GTLRSheetsService()
         s.apiKey = GoogleSpreadSheetInfo.apiKey
         return s
@@ -28,7 +27,7 @@ final class GoogleSpreadSheetDownloader {
         
         let getQuery = GTLRSheetsQuery_SpreadsheetsValuesGet.query(withSpreadsheetId: spreadsheetId, range: range)
         
-        service.executeQuery(getQuery) { ticket, data, error in
+        gtlrService.executeQuery(getQuery) { ticket, data, error in
             guard  let sheetsData = data as? GTLRSheets_ValueRange else { return }
             print("ticket:", sheetsData.values!)
             completionHandler(sheetsData)
@@ -36,5 +35,7 @@ final class GoogleSpreadSheetDownloader {
         
         print("Finished getCellQuery")
     }
+    
+    
     
 }
