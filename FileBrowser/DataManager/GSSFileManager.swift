@@ -9,26 +9,41 @@ import Foundation
 
 protocol GSSFileManagerDelegate: AnyObject {
     func currentFolderChange()
+    func fileSystemWasGenerated()
+    func addNewItem()
 }
 
 class GSSFileManager {
     var folders = [Folder(name: "Root", type: .d)]
     var items = [Item]()
     
-    var currentFolderIndexPosition = 0 {
+    var currentFolder: Folder {
+        folders[currentFolderIndexPosition]
+    }
+    
+    weak var delegate: GSSFileManagerDelegate?
+    
+    private var currentFolderIndexPosition = 0 {
         didSet {
             delegate?.currentFolderChange()
         }
     }
     
-    var currentFolder: Folder {
-        folders[currentFolderIndexPosition]
+    public func generateFileSystems(from spreadSheetData: [[String]]) {
+        for row in spreadSheetData {
+            let uuid = row[0].isEmpty ? nil : UUID(uuidString: row[0])
+            let parentuuid = row[1].isEmpty ? nil : UUID(uuidString: row[1])
+            
+            let item = row[2] == "f" ? Item(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .f) : Folder(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .d)
+            
+            items.append(item)
+        }
+        
+        recursive(parentUUID: nil)
+        delegate?.fileSystemWasGenerated()
     }
     
-    
-    weak var delegate: GSSFileManagerDelegate?
-    
-     func showContentFolder(withUUID itemUUID: UUID?) {
+     public func showContentFolder(withUUID itemUUID: UUID?) {
         guard itemUUID != nil else  {
             currentFolderIndexPosition = 0
             return
@@ -39,6 +54,12 @@ class GSSFileManager {
                 currentFolderIndexPosition = i
             }
         }
+    }
+    
+    public func addToFolderItem(type: ItemType) {
+        let folderUUID = currentFolder.uuid
+        currentFolder.contents.append(Item(name: "New doc", uuid: UUID(uuidString: "A0986487"), parentUUID: folderUUID , type: type))
+        delegate?.addNewItem()
     }
     
     private func recursive(parentUUID: UUID?) {
@@ -54,19 +75,4 @@ class GSSFileManager {
             }
         }
     }
-    
-    
-    func generateFileSystems(from spreadSheetData: [[String]]) {
-        for row in spreadSheetData {
-            let uuid = row[0].isEmpty ? nil : UUID(uuidString: row[0])
-            let parentuuid = row[1].isEmpty ? nil : UUID(uuidString: row[1])
-            
-            let item = row[2] == "f" ? Item(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .f) : Folder(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .d)
-            
-            items.append(item)
-        }
-        
-        recursive(parentUUID: nil)
-    }
-    
 }
