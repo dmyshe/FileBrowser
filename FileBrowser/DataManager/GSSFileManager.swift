@@ -33,15 +33,18 @@ class GSSFileManager {
     
     //MARK: - Methods
     public func generateFileSystems(from spreadSheetData: [[String]]) {
-        for row in spreadSheetData {
+        spreadSheetData.forEach { row in
             let uuid = row[0].isEmpty ? nil : UUID(uuidString: row[0])
             let parentuuid = row[1].isEmpty ? nil : UUID(uuidString: row[1])
             
-            let item = row[2] == "f" ? Item(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .f) : Folder(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .d)
+            let file = Item(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .f)
+            let folder = Folder(name: row[3], uuid: uuid, parentUUID: parentuuid, type: .d)
             
-            items.append(item)
+            let newItem = row[2] == "f" ?  file  : folder
+            
+            items.append(newItem)
         }
-        
+                
         recursive(parentUUID: nil)
         delegate?.fileSystemWasGenerated()
     }
