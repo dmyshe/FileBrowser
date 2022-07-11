@@ -27,7 +27,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemListTypeCell" id="UMm-oh-yXE" customClass="FileListTypeCollectionViewCell" customModule="FileBrowser" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemCell" id="UMm-oh-yXE" customClass="ItemCell" customModule="FileBrowser" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0Df-2m-s6y">
@@ -95,13 +95,21 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="list.bullet" catalog="system" id="lIB-sW-DgF">
+                            <barButtonItem title="ToogleStyleButton" image="list.bullet" catalog="system" id="lIB-sW-DgF">
                                 <connections>
                                     <action selector="toogleBeetwenGridAndListStyleWith_sender:" destination="BYZ-38-t0r" id="ok9-9w-5oe"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="folder.badge.plus" catalog="system" id="4W9-TA-eOZ"/>
-                            <barButtonItem title="Item" image="doc.badge.plus" catalog="system" id="2WC-u1-ltK"/>
+                            <barButtonItem title="Folder" image="folder.badge.plus" catalog="system" id="4W9-TA-eOZ">
+                                <connections>
+                                    <action selector="addItem:" destination="BYZ-38-t0r" id="yVZ-Tl-DnI"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="File" image="doc.badge.plus" catalog="system" id="2WC-u1-ltK">
+                                <connections>
+                                    <action selector="addItem:" destination="BYZ-38-t0r" id="gTX-mt-JuM"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>

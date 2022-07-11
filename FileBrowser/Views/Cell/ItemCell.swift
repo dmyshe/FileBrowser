@@ -8,16 +8,16 @@
 import Foundation
 import UIKit
 
-final class FileListTypeCollectionViewCell: UICollectionViewCell {
+final class ItemCell: UICollectionViewCell {
     //MARK: - Identifier
-    static let identifier = "ItemListTypeCell"
+    static let identifier = "ItemCell"
     
-    //MARK: -IBOutlets
+    //MARK: - IBOutlets
     @IBOutlet weak var fileName: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         self.layer.cornerRadius = 10
     }
     

@@ -18,7 +18,8 @@ class MainViewController: UIViewController {
     
     //MARK: - File Manager
     private let fileManager = GSSFileManager()
-
+    
+    //MARK: - Properties
     private var isListView = false {
         didSet {
             collectionViewStylToggleButton.image = isListView ? AppImages.systemListImage : AppImages.systemGridImage
@@ -35,19 +36,26 @@ class MainViewController: UIViewController {
         fileManager.showContentFolder(withUUID: folder.parentUUID)
     }
     
-    //MARK: - Methods
+    @IBAction private func addItem(_ sender: UIBarButtonItem) {
+        if sender.title == "File" {
+            fileManager.addToFolderItem(type: .f)
+        } else if sender.title == "Folder" {
+            fileManager.addToFolderItem(type: .d)
+        }
+    }
+
+    //MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
         fileManager.delegate = self
         fetchData()
     }
-        
+    
+    //MARK: - Methods
     private func fetchData() {
         googleSSDownloader.fetchData() { [weak self] data in
             guard let spreadSheetData = data.values as? [[String]] else { return }
-            
             self?.fileManager.generateFileSystems(from: spreadSheetData)
-            self?.collectionView.reloadData()
         }
     }
 }
@@ -67,10 +75,8 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FileListTypeCollectionViewCell.identifier, for: indexPath) as? FileListTypeCollectionViewCell else { return  UICollectionViewCell() }
-        
-        activityIndicator.stopAnimating()
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else { return  UICollectionViewCell() }
+                
         let folder = fileManager.currentFolder
         
         title = "\(folder.name)"
@@ -85,7 +91,15 @@ extension MainViewController: UICollectionViewDataSource {
 
 //MARK: - GSSFileManagerDelegate
 extension MainViewController: GSSFileManagerDelegate {
+    func addNewItem() {
+        collectionView.reloadData()
+    }
+    
     func currentFolderChange() {
         collectionView.reloadData()
+    }
+    func fileSystemWasGenerated() {
+        collectionView.reloadData()
+        activityIndicator.stopAnimating()
     }
 }

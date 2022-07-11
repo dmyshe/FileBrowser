@@ -14,14 +14,16 @@ protocol GSSFileManagerDelegate: AnyObject {
 }
 
 class GSSFileManager {
-    var folders = [Folder(name: "Root", type: .d)]
-    var items = [Item]()
-    
+    //MARK: - Properties
     var currentFolder: Folder {
         folders[currentFolderIndexPosition]
     }
     
+    //MARK: - Delegate
     weak var delegate: GSSFileManagerDelegate?
+    
+    private var folders = [Folder(name: "Root", type: .d)]
+    private var items = [Item]()
     
     private var currentFolderIndexPosition = 0 {
         didSet {
@@ -29,6 +31,7 @@ class GSSFileManager {
         }
     }
     
+    //MARK: - Methods
     public func generateFileSystems(from spreadSheetData: [[String]]) {
         for row in spreadSheetData {
             let uuid = row[0].isEmpty ? nil : UUID(uuidString: row[0])
