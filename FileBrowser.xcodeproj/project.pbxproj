@@ -169,6 +169,7 @@
 		32ECF1EB287C78210047FEF9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				326BFA2D28604FFF007D1730 /* LaunchScreen.storyboard */,
 				326BFA2B28604FFF007D1730 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -186,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				326BFA2828604FFB007D1730 /* Main.storyboard */,
-				326BFA2D28604FFF007D1730 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
